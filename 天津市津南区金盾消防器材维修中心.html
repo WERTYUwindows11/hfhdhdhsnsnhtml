@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>天津市津南区金盾消防器材维修中心</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-text {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .call-button {
+            position: relative;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .call-button:hover {
+            background-color: #45a049;
+        }
+
+        /* 电话选项样式 */
+        .phone-options {
+            margin-top: 15px;
+            display: none; /* 初始隐藏 */
+        }
+
+        .phone-option {
+            display: block;
+            width: 90%;
+            padding: 10px;
+            background-color: #f1f1f1;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+        .phone-option:hover {
+            background-color: #ddd;
+        }
+
+        /* 时间显示样式 */
+        .time-display {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-text">请选择一个电话号码</div>
+        <button class="call-button" onclick="togglePhoneOptions()">点我选择电话</button>
+        <div class="phone-options" id="phoneOptions">
+           <a href="tel:+8613312000662" class="phone-option">+86 133 1200 0662</a >
+            <a href="tel:+8615342159288" class="phone-option">+86 153 4215 9288</a >
+            <a href="tel:+8602228756699" class="phone-option">+86 022 2875 6699</a >
+        </div>
+        <div class="time-display">
+            <span id="currentTime"></span><br>
+            <span id="currentDate"></span>
+        </div>
+    </div>
+
+    <script>
+        // 显示或隐藏电话号码选项
+        function togglePhoneOptions() {
+            const phoneOptions = document.getElementById("phoneOptions");
+            if (phoneOptions.style.display === "block") {
+                phoneOptions.style.display = "none";
+            } else {
+                phoneOptions.style.display = "block";
+            }
+        }
+
+        // 点击窗口外部关闭电话选项
+        window.onclick = function(event) {
+            const phoneOptions = document.getElementById("phoneOptions");
+            if (!event.target.matches('.call-button') && phoneOptions.style.display === "block") {
+                phoneOptions.style.display = "none";
+            }
+        }
+
+        // 更新当前时间和日期
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            const weekDay = weekDays[now.getDay()];
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const currentTime = `${hours}:${minutes}:${seconds}`;
+            const currentDate = `${year}年${month}月${day}日 ${weekDay}`;
+
+            document.getElementById("currentTime").textContent = `时间: ${currentTime}`;
+            document.getElementById("currentDate").textContent = `日期: ${currentDate}`;
+            setTimeout(updateTime, 1000); // 每秒更新一次
+        }
+
+        // 初始化时间
+        window.onload = updateTime;
+    </script>
+
+</body>
+</html>
